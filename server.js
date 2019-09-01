@@ -6,9 +6,9 @@ var db = [];
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-let bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+// let bodyParser = require('body-parser');
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 app.use(express.static('img'));
 app.use(express.static('css'));
