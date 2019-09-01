@@ -1,10 +1,23 @@
 <!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="colour.css">
+</head><!DOCTYPE html>
+<head>
+        <link rel="stylesheet" href="colour.css">
+</head>
+    <body>
 
+    </body>
+</html>
     <body>
         <h1>Add a task</h1>
         <form action = "/addTask" method="POST">
             Task Name: <input type = "text" name = "taskName"/><br/>
-            Task Date: <input type = "text" name = "taskDate"/><br/>
+            Assign to: <input type = "text" name = "taskAssigned"/><br/>
+            Task Date: <input type = "date" name = "taskDate"/><br/>
+            Task Status: <br/>
+            <input type="radio" name="taskStatus" value="inProgress">In Progress<br>
+            <input type="radio" name="taskStatus" value="complete">Complete<br>
             Task Description: <input type = "text" name = "taskDesc"/><br/>
             <button type = "submit">Add Task</button>
         </form>

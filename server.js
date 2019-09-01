@@ -1,6 +1,23 @@
 let express = require('express');
 let app = express();
-var db = [];
+
+const morgan = require('morgan');
+app.use(morgan('common'));
+
+var db;
+
+//mongoDB
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
+const url = 'mongodb://localhost:27017/';
+MongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
+    if (err) {
+        console.log('Err', err);
+    } else {
+        console.log("Connected successfully to server");
+        db = client.db('Week5ToDoList');
+    }
+});
 
 //set up view engine
 app.engine('html', require('ejs').renderFile);
@@ -26,12 +43,22 @@ app.get("/addTasks", function(req, res){
 });
 
 app.get("/listTasks", function(req, res){
-    res.render("tasks.html", {myData:db});
+    res.render("listTasks.html", {myData:db});
 });
 
 app.post("/addTask", function(req, res){
-    db.push(req.body);
-    res.render("tasks.html", {myData:db});
+    let taskDetails = req.body;
+    db.collection('Tasks').insertOne({
+        taskName: taskDetails.taskName,
+        taskAssigned: taskDetails.taskAssigned,
+        taskDate: taskDetails.taskDate,
+        taskStatus: taskDetails.taskStatus,
+        taskDescription: taskDetails.taskDescription
+    }) 
+    
+    //res.render("listTasks.html", {myData:db});
+    let filename = filePath + "index.html";
+    res.sendFile(filename);
 });
 
 app.listen(8000);

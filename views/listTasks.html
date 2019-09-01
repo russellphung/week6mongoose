@@ -7,13 +7,11 @@
             <tr>
                 <th>Task Name</th>
                 <th>Task Date</th>
-                <th>Task Description</th>
             </tr>
             <% for ( var i =0; i< myData.length;i++){ %>
             <tr>
                 <td> <%= myData[i].taskName %> </td>
                 <td> <%= myData[i].taskDate %> </td>
-                <td> <%= myData[i].taskDesc %> </td>
             </tr>  
             <% }%>      
         </table>
