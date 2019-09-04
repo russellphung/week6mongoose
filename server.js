@@ -41,11 +41,6 @@ app.get("/addTasks", function(req, res){
     let filename = filePath + "addTasks.html";
     res.sendFile(filename);
 });
-
-app.get("/listTasks", function(req, res){
-    res.render("listTasks.html", {myData:db});
-});
-
 app.post("/addTask", function(req, res){
     let taskDetails = req.body;
     db.collection('Tasks').insertOne({
@@ -55,10 +50,50 @@ app.post("/addTask", function(req, res){
         taskStatus: taskDetails.taskStatus,
         taskDescription: taskDetails.taskDescription
     }) 
-    
-    //res.render("listTasks.html", {myData:db});
-    let filename = filePath + "index.html";
+    res.redirect('/listTasks');
+});
+
+app.get("/listTasks", function(req, res){
+    db.collection('Tasks').find({}).toArray(function(err, data){
+        if(err){
+            console.log('err: ', err);
+        }
+        else {
+            res.render("listTasks.html", {myData:data});
+
+        }
+    })
+});
+
+app.get("/deleteTask", function(req, res){
+    let filename = filePath + "deleteTask.html";
     res.sendFile(filename);
+});
+app.post("/deleteTask", function(req, res){
+    let taskID = req.body.taskID;
+    console.log(taskID);
+    db.collection('Tasks').deleteOne({_id: new mongodb.ObjectID(taskID)},function(err, obj){}) 
+    res.redirect('/listTasks');
+});
+
+app.get("/deleteAll", function(req, res){
+    let filename = filePath + "deleteAll.html";
+    res.sendFile(filename);
+});
+app.post("/deleteAll", function(req, res){
+    db.collection('Tasks').deleteMany({}) 
+    res.redirect('/listTasks');
+});
+
+app.get("/updateTask", function(req, res){
+    let filename = filePath + "updateTask.html";
+    res.sendFile(filename);
+});
+app.post("/updateTask", function(req, res){
+    let taskDetails = req.body;
+    db.collection('Tasks').updateOne({_id: new mongodb.ObjectID(taskDetails.taskID)},
+    {$set:{taskStatus:taskDetails.taskStatus}}, function(err, obj){}) 
+    res.redirect('/listTasks');
 });
 
 app.listen(8000);

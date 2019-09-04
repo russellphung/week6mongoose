@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="colour.css">
+    <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+    </style>
 </head>
     <body>
         <table>
             <tr>
+                <th>Task ID</th>
                 <th>Task Name</th>
-                <th>Task Date</th>
+                <th>Assign To</th>
+                <th>Due Date</th>
+                <th>Task Status</th>
+                <th>Task Description</th>
             </tr>
             <% for ( var i =0; i< myData.length;i++){ %>
             <tr>
+                <td> <%= myData[i]._id %> </td>
                 <td> <%= myData[i].taskName %> </td>
+                <td> <%= myData[i].taskAssigned %> </td>
                 <td> <%= myData[i].taskDate %> </td>
+                <td> <%= myData[i].taskStatus %> </td>
+                <td> <%= myData[i].taskDescription %> </td>
             </tr>  
             <% }%>      
         </table>

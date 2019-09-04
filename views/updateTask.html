@@ -3,6 +3,14 @@
         <link rel="stylesheet" href="colour.css">
 </head>
     <body>
-
+        <h1>Update task</h1>
+        <form action = "/updateTask" method="POST">
+            Task ID: <input type = "text" name = "taskID"/><br/>
+            Task Status: <br/>
+            <input type="radio" name="taskStatus" value="inProgress">In Progress<br>
+            <input type="radio" name="taskStatus" value="complete">Complete<br>
+            <button type = "submit">Update Task</button>
+        </form>
+        <h1>Return <a href = "/">Home</a></h1>
     </body>
 </html>
