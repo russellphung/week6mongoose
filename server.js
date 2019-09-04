@@ -9,7 +9,7 @@ var db;
 //mongoDB
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
-const url = 'mongodb://35.244.101.53:27017/';
+const url = 'mongodb://'+ process.argv[2] + ":27017/";
 MongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
     if (err) {
         console.log('Err', err);
