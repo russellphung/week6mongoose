@@ -96,5 +96,15 @@ app.post("/updateTask", function(req, res){
     res.redirect('/listTasks');
 });
 
+app.get("/deleteOldComplete", function(req, res){
+    let filename = filePath + "deleteOldComplete.html";
+    res.sendFile(filename);
+});
+app.post("/deleteOldComplete", function(req, res){
+    db.collection('Tasks').deleteMany({_id: new mongodb.ObjectID(taskDetails.taskID)},
+    {$set:{taskStatus:taskDetails.taskStatus}}, function(err, obj){}) 
+    res.redirect('/listTasks');
+});
+
 app.listen(8000);
 
