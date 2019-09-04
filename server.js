@@ -46,7 +46,7 @@ app.post("/addTask", function(req, res){
     db.collection('Tasks').insertOne({
         taskName: taskDetails.taskName,
         taskAssigned: taskDetails.taskAssigned,
-        taskDate: taskDetails.taskDate,
+        taskDate: new Date(taskDetails.taskDate),
         taskStatus: taskDetails.taskStatus,
         taskDescription: taskDetails.taskDescription
     }) 
@@ -101,8 +101,10 @@ app.get("/deleteOldComplete", function(req, res){
     res.sendFile(filename);
 });
 app.post("/deleteOldComplete", function(req, res){
-    db.collection('Tasks').deleteMany({_id: new mongodb.ObjectID(taskDetails.taskID)},
-    {$set:{taskStatus:taskDetails.taskStatus}}, function(err, obj){}) 
+    let due = new Date(req.body.dueDate);
+    db.collection('Tasks').deleteMany({$and:[{taskStatus: 'complete'},{taskDate:{$lte:due = new Date()}}]});
+    //db.collection('Tasks').deleteMany({taskDate:{$lte:new Date(req.body.dueDate)}});
+    console.log(due);
     res.redirect('/listTasks');
 });
 
