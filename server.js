@@ -14,7 +14,7 @@ MongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
     if (err) {
         console.log('Err', err);
     } else {
-        console.log("Connected successfully to server");
+        console.log("Connected successfully to server lmao");
         db = client.db('Week5ToDoList');
     }
 });
