@@ -4,6 +4,8 @@ let app = express();
 const morgan = require('morgan');
 app.use(morgan('common'));
 
+var mongoose = require('mongoose');
+
 var db;
 
 //mongoDB
@@ -18,6 +20,35 @@ MongoClient.connect(url, {useNewUrlParser: true}, function (err, client) {
         db = client.db('Week5ToDoList');
     }
 });
+
+//import models
+// let warehouse = require("./models/warehouse");
+// let items = require("./models/items");
+
+// app.get("/addstore/:name/:capacity/:address", function(req, res){
+//     warehouse.create({
+//         name: req.params.name,
+//         capacity: parseInt(req.params.capacity),
+//         address: req.params.address
+//     }, function(err){
+//     if(err){
+//         console.log(err);
+//     } 
+//     else {
+//         res.redirect("/getStores");
+//     }
+// });
+
+// app.get("/getStores", function(req,res){
+//     warehouse.find().exec(function(err, data){
+//         if(err){
+//             console.log(err);
+//         }
+//         else {
+//             res.send(data);
+//         }
+//     })
+// })
 
 //set up view engine
 app.engine('html', require('ejs').renderFile);
